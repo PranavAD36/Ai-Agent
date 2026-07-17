@@ -1,5 +1,99 @@
 [
     {
+        "repo_url": "https://github.com/PranavAD36/PranavAD36",
+        "timestamp": "2026-07-17 10:58",
+        "report": {
+            "repo_url": "https://github.com/PranavAD36/PranavAD36",
+            "repo_path": "C:\\Users\\Pranav Dabhi\\AppData\\Local\\Temp\\code-review-repo-5tudozfl",
+            "metrics": {
+                "files_scanned": 0,
+                "ast_chunks": 0,
+                "findings_count": 0,
+                "bandit_warnings": 0,
+                "pylint_warnings": 0,
+                "initial_coverage_pct": 0.0,
+                "final_coverage_pct": 0.0,
+                "new_tests_generated": 0
+            },
+            "summary": "## Code Review Summary: No Source Code Detected\n\n**Status**: Completed (No Files Scanned)\n\nNo source code files matching the supported extensions (.py, .js, .jsx, .ts, .tsx) were found in the repository. As a result, no static analysis, logic review, or sandbox test executions could be performed. Please ensure the repository contains supported source files and that the language configurations are correct.",
+            "static_analysis": {
+                "status": "completed",
+                "bandit": [],
+                "pylint": []
+            },
+            "findings": [],
+            "suggested_fixes": [],
+            "test_results": {
+                "status": "no_tests_found",
+                "has_tests": false
+            },
+            "final_test_results": {
+                "status": "no_tests_found",
+                "has_tests": false
+            },
+            "generated_tests": [],
+            "validation_results": {
+                "status": "no_fixes_to_validate"
+            }
+        },
+        "state": {
+            "repo_url": "https://github.com/PranavAD36/PranavAD36",
+            "repo_path": "C:\\Users\\Pranav Dabhi\\AppData\\Local\\Temp\\code-review-repo-5tudozfl",
+            "language": "python",
+            "files": {},
+            "file_chunks": [],
+            "static_analysis_results": {
+                "status": "completed",
+                "bandit": [],
+                "pylint": []
+            },
+            "llm_findings": [],
+            "suggested_fixes": [],
+            "test_results": {
+                "status": "no_tests_found",
+                "has_tests": false
+            },
+            "generated_tests": [],
+            "validation_results": {
+                "status": "no_fixes_to_validate"
+            },
+            "report": {
+                "repo_url": "https://github.com/PranavAD36/PranavAD36",
+                "repo_path": "C:\\Users\\Pranav Dabhi\\AppData\\Local\\Temp\\code-review-repo-5tudozfl",
+                "metrics": {
+                    "files_scanned": 0,
+                    "ast_chunks": 0,
+                    "findings_count": 0,
+                    "bandit_warnings": 0,
+                    "pylint_warnings": 0,
+                    "initial_coverage_pct": 0.0,
+                    "final_coverage_pct": 0.0,
+                    "new_tests_generated": 0
+                },
+                "summary": "## Code Review Summary: No Source Code Detected\n\n**Status**: Completed (No Files Scanned)\n\nNo source code files matching the supported extensions (.py, .js, .jsx, .ts, .tsx) were found in the repository. As a result, no static analysis, logic review, or sandbox test executions could be performed. Please ensure the repository contains supported source files and that the language configurations are correct.",
+                "static_analysis": {
+                    "status": "completed",
+                    "bandit": [],
+                    "pylint": []
+                },
+                "findings": [],
+                "suggested_fixes": [],
+                "test_results": {
+                    "status": "no_tests_found",
+                    "has_tests": false
+                },
+                "final_test_results": {
+                    "status": "no_tests_found",
+                    "has_tests": false
+                },
+                "generated_tests": [],
+                "validation_results": {
+                    "status": "no_fixes_to_validate"
+                }
+            }
+        }
+    },
+    {
         "repo_url": "https://github.com/octocat/Hello-World",
         "timestamp": "2026-07-09 17:38",
         "report": {
@@ -15347,99 +15441,6 @@
                         "status": "no_bugs_found"
                     }
                 ],
-                "suggested_fixes": [],
-                "test_results": {
-                    "status": "no_tests_found",
-                    "has_tests": false
-                },
-                "final_test_results": {
-                    "status": "no_tests_found",
-                    "has_tests": false
-                },
-                "generated_tests": [],
-                "validation_results": {
-                    "status": "no_fixes_to_validate"
-                }
-            }
-        }
-    },
-    {
-        "repo_url": "https://github.com/AppFlowy-IO/AppFlowy",
-        "timestamp": "2026-07-04 16:59",
-        "report": {
-            "repo_url": "https://github.com/AppFlowy-IO/AppFlowy",
-            "repo_path": "C:\\Users\\meetg\\AppData\\Local\\Temp\\code-review-repo-jd7nm13x",
-            "metrics": {
-                "files_scanned": 0,
-                "ast_chunks": 0,
-                "findings_count": 0,
-                "bandit_warnings": 0,
-                "pylint_warnings": 0,
-                "initial_coverage_pct": 0.0,
-                "final_coverage_pct": 0.0,
-                "new_tests_generated": 0
-            },
-            "summary": "**Code Review Summary**\n\nBased on the provided results, it appears that no code files were reviewed, and consequently, no issues were found. The sandbox test status indicates that no tests were conducted, and the code coverage is 0.0%, suggesting that no code was executed or analyzed.\n\n**High-Level Summary of Codebase Quality:**\nThe codebase quality cannot be assessed at this time, as no code files were reviewed. It is essential to conduct a thorough code review to evaluate the quality, security, and maintainability of the codebase.\n\n**Critical Security Risks:**\nNo critical security risks can be identified from the provided results, as no code was reviewed or analyzed. However, the lack of testing and code review may indicate potential security risks that have not been discovered.\n\n**Recommended Next Steps:**\n\n1. **Conduct a thorough code review**: Review all relevant code files to identify potential security vulnerabilities, bugs, and areas for improvement.\n2. **Develop and execute sandbox tests**: Create and run comprehensive tests to ensure the codebase functions as expected and to identify potential security issues.\n3. **Implement code coverage analysis**: Measure code coverage to identify areas of the codebase that require additional testing and review.\n4. **Address any identified issues**: Prioritize and remediate any security vulnerabilities, bugs, or areas for improvement found during the code review and testing process.\n5. **Establish a regular code review and testing process**: Schedule regular code reviews and testing to ensure the codebase remains secure, stable, and maintainable over time.\n\nBy following these recommended next steps, we can gain a better understanding of the codebase quality, identify potential security risks, and take proactive measures to ensure the security and integrity of the codebase.",
-            "static_analysis": {
-                "status": "completed",
-                "bandit": [],
-                "pylint": []
-            },
-            "findings": [],
-            "suggested_fixes": [],
-            "test_results": {
-                "status": "no_tests_found",
-                "has_tests": false
-            },
-            "final_test_results": {
-                "status": "no_tests_found",
-                "has_tests": false
-            },
-            "generated_tests": [],
-            "validation_results": {
-                "status": "no_fixes_to_validate"
-            }
-        },
-        "state": {
-            "repo_url": "https://github.com/AppFlowy-IO/AppFlowy",
-            "repo_path": "C:\\Users\\meetg\\AppData\\Local\\Temp\\code-review-repo-jd7nm13x",
-            "files": {},
-            "file_chunks": [],
-            "static_analysis_results": {
-                "status": "completed",
-                "bandit": [],
-                "pylint": []
-            },
-            "llm_findings": [],
-            "suggested_fixes": [],
-            "test_results": {
-                "status": "no_tests_found",
-                "has_tests": false
-            },
-            "generated_tests": [],
-            "validation_results": {
-                "status": "no_fixes_to_validate"
-            },
-            "report": {
-                "repo_url": "https://github.com/AppFlowy-IO/AppFlowy",
-                "repo_path": "C:\\Users\\meetg\\AppData\\Local\\Temp\\code-review-repo-jd7nm13x",
-                "metrics": {
-                    "files_scanned": 0,
-                    "ast_chunks": 0,
-                    "findings_count": 0,
-                    "bandit_warnings": 0,
-                    "pylint_warnings": 0,
-                    "initial_coverage_pct": 0.0,
-                    "final_coverage_pct": 0.0,
-                    "new_tests_generated": 0
-                },
-                "summary": "**Code Review Summary**\n\nBased on the provided results, it appears that no code files were reviewed, and consequently, no issues were found. The sandbox test status indicates that no tests were conducted, and the code coverage is 0.0%, suggesting that no code was executed or analyzed.\n\n**High-Level Summary of Codebase Quality:**\nThe codebase quality cannot be assessed at this time, as no code files were reviewed. It is essential to conduct a thorough code review to evaluate the quality, security, and maintainability of the codebase.\n\n**Critical Security Risks:**\nNo critical security risks can be identified from the provided results, as no code was reviewed or analyzed. However, the lack of testing and code review may indicate potential security risks that have not been discovered.\n\n**Recommended Next Steps:**\n\n1. **Conduct a thorough code review**: Review all relevant code files to identify potential security vulnerabilities, bugs, and areas for improvement.\n2. **Develop and execute sandbox tests**: Create and run comprehensive tests to ensure the codebase functions as expected and to identify potential security issues.\n3. **Implement code coverage analysis**: Measure code coverage to identify areas of the codebase that require additional testing and review.\n4. **Address any identified issues**: Prioritize and remediate any security vulnerabilities, bugs, or areas for improvement found during the code review and testing process.\n5. **Establish a regular code review and testing process**: Schedule regular code reviews and testing to ensure the codebase remains secure, stable, and maintainable over time.\n\nBy following these recommended next steps, we can gain a better understanding of the codebase quality, identify potential security risks, and take proactive measures to ensure the security and integrity of the codebase.",
-                "static_analysis": {
-                    "status": "completed",
-                    "bandit": [],
-                    "pylint": []
-                },
-                "findings": [],
                 "suggested_fixes": [],
                 "test_results": {
                     "status": "no_tests_found",
