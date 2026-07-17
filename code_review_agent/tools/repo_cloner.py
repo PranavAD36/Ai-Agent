@@ -34,7 +34,7 @@ def clone_repo(repo_url: str, target_dir: str) -> str:
         shutil.rmtree(destination)
     destination.parent.mkdir(parents=True, exist_ok=True)
 
-    Repo.clone_from(repo_url, destination, multi_options=["-c core.longpaths=true"], allow_unsafe_options=True)
+    Repo.clone_from(repo_url, destination, depth=1, multi_options=["-c core.longpaths=true"], allow_unsafe_options=True)
     return str(destination)
 
 

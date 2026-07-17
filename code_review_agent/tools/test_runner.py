@@ -69,13 +69,62 @@ def run_tests_in_sandbox(repo_path: str, language: str = "python") -> dict[str, 
             # For JavaScript, npm install is bundled in the test command, but let's log it
             print(f"[*] Running project install & test suite inside sandbox...")
 
-        # Execute test suite with coverage configuration
+        # Execute test suite with coverage configuration and self-healing package recovery
         print(f"[*] Executing test suite in sandbox...")
-        exec_result = run_command_in_sandbox(sandbox, command)
         
-        stdout = exec_result.get("stdout", "")
-        stderr = exec_result.get("stderr", "")
-        exit_code = exec_result.get("exit_code", 1)
+        max_attempts = 6  # Allow up to 5 automatic installations
+        attempt = 0
+        installed_modules = set()
+        
+        while attempt < max_attempts:
+            exec_result = run_command_in_sandbox(sandbox, command)
+            stdout = exec_result.get("stdout", "")
+            stderr = exec_result.get("stderr", "")
+            exit_code = exec_result.get("exit_code", 1)
+            
+            combined_output = stdout + "\n" + stderr
+            missing_module = None
+            
+            # 1. Parse missing Python modules
+            if language.lower() == "python":
+                match = re.search(r"ModuleNotFoundError:\s*No\s+module\s+named\s+'([^']+)'", combined_output)
+                if match:
+                    missing_module = match.group(1)
+                else:
+                    match = re.search(r"ImportError:\s*No\s+module\s+named\s+([^\s\n\r]+)", combined_output)
+                    if match:
+                        missing_module = match.group(1).strip("'\"")
+                        
+                if missing_module and missing_module not in installed_modules:
+                    installed_modules.add(missing_module)
+                    pip_package = missing_module.split('.')[0]
+                    print(f"[*] Detected missing Python dependency: '{pip_package}'. Dynamically installing...")
+                    try:
+                        sandbox.commands.run(f"pip install {pip_package}", cwd="/home/user/workspace")
+                        attempt += 1
+                        print("[*] Dependency installed. Retrying execution...")
+                        continue
+                    except Exception as err:
+                        print(f"[*] Warning: Dynamic package installation failed: {err}")
+            
+            # 2. Parse missing JavaScript modules
+            elif language.lower() == "javascript":
+                match = re.search(r"Cannot\s+find\s+module\s+'([^']+)'", combined_output)
+                if match:
+                    missing_module = match.group(1)
+                    # Ignore relative paths (e.g. './src/utils')
+                    if "/" not in missing_module and missing_module not in installed_modules:
+                        installed_modules.add(missing_module)
+                        print(f"[*] Detected missing JavaScript dependency: '{missing_module}'. Dynamically installing...")
+                        try:
+                            sandbox.commands.run(f"npm install {missing_module}", cwd="/home/user/workspace")
+                            attempt += 1
+                            print("[*] Dependency installed. Retrying execution...")
+                            continue
+                        except Exception as err:
+                            print(f"[*] Warning: Dynamic package installation failed: {err}")
+            
+            break
         
         # Parse pass/fail test results from raw output
         parsed_results = parse_test_results(stdout + "\n" + stderr)

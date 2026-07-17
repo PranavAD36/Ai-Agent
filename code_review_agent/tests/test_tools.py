@@ -103,3 +103,68 @@ def test_build_report_empty_files():
     assert report["metrics"]["files_scanned"] == 0
     assert "No Source Code Detected" in report["summary"]
     assert "No source code files matching the supported extensions" in report["summary"]
+
+
+def test_run_tests_in_sandbox_self_healing(monkeypatch):
+    from tools.test_runner import run_tests_in_sandbox
+
+    # Mock environment key to let test run
+    monkeypatch.setenv("E2B_API_KEY", "dummy_key")
+
+    mock_commands = []
+    sandbox_calls = {"uploads": 0}
+
+    class FakeCommands:
+        def run(self, command, cwd=None):
+            mock_commands.append((command, cwd))
+            class Result:
+                exit_code = 0
+                stdout = "test output"
+                stderr = ""
+            return Result()
+
+    class FakeFiles:
+        def read(self, path):
+            return '{"totals": {"percent_covered": 85.0}}'
+
+    class FakeSandbox:
+        commands = FakeCommands()
+        files = FakeFiles()
+        def kill(self):
+            pass
+
+    def fake_create_sandbox():
+        return FakeSandbox()
+
+    def fake_upload_repo(sandbox, repo_path):
+        sandbox_calls["uploads"] += 1
+
+    runs_count = 0
+    def fake_run_command_in_sandbox(sandbox, command):
+        nonlocal runs_count
+        runs_count += 1
+        if runs_count == 1:
+            # Simulate failure due to missing module on the first run
+            return {
+                "stdout": "",
+                "stderr": "ModuleNotFoundError: No module named 'langchain_groq'",
+                "exit_code": 1
+            }
+        else:
+            # Succeed on the second run after package installation
+            return {
+                "stdout": "=== 1 passed ===",
+                "stderr": "",
+                "exit_code": 0
+            }
+
+    monkeypatch.setattr("tools.test_runner.create_sandbox", fake_create_sandbox)
+    monkeypatch.setattr("tools.test_runner.upload_repo_to_sandbox", fake_upload_repo)
+    monkeypatch.setattr("tools.test_runner.run_command_in_sandbox", fake_run_command_in_sandbox)
+
+    results = run_tests_in_sandbox("/dummy/path", language="python")
+
+    assert results["status"] == "completed"
+    assert results["passed"] == 1
+    assert ("pip install langchain_groq", "/home/user/workspace") in mock_commands
+    assert runs_count == 2

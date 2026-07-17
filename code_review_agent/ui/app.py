@@ -201,37 +201,40 @@ if run_btn:
         config = {"recursion_limit": 50}
         
         try:
-            active_node = None
+            # Set first node (clone_repo) to running status before we start streaming
+            first_node_id, first_label = NODE_LIST[0]
+            progress_placeholders[first_node_id].markdown(
+                f'<div class="step-status status-running">🔄 {first_label} - Processing...</div>',
+                unsafe_allow_html=True
+            )
+            
             st.session_state.current_state = {"repo_url": repo_url}
             
             for event in review_graph.stream(inputs, config):
                 for node_id, state_update in event.items():
-                    # Update previous node to completed
-                    if active_node and active_node in progress_placeholders:
-                        prev_label = next(lbl for nid, lbl in NODE_LIST if nid == active_node)
-                        progress_placeholders[active_node].markdown(
-                            f'<div class="step-status status-completed">✅ {prev_label} - Done</div>',
+                    # 1. Mark completed node as Completed
+                    if node_id in progress_placeholders:
+                        completed_label = next(lbl for nid, lbl in NODE_LIST if nid == node_id)
+                        progress_placeholders[node_id].markdown(
+                            f'<div class="step-status status-completed">✅ {completed_label} - Done</div>',
                             unsafe_allow_html=True
                         )
                         
-                    # Set current node to running
-                    active_node = node_id
-                    current_label = next(lbl for nid, lbl in NODE_LIST if nid == node_id)
-                    progress_placeholders[node_id].markdown(
-                        f'<div class="step-status status-running">🔄 {current_label} - Processing...</div>',
-                        unsafe_allow_html=True
-                    )
+                    # 2. Determine and mark the next node as Processing...
+                    try:
+                        node_ids = [nid for nid, _ in NODE_LIST]
+                        current_index = node_ids.index(node_id)
+                        if current_index + 1 < len(NODE_LIST):
+                            next_node_id, next_label = NODE_LIST[current_index + 1]
+                            progress_placeholders[next_node_id].markdown(
+                                f'<div class="step-status status-running">🔄 {next_label} - Processing...</div>',
+                                unsafe_allow_html=True
+                            )
+                    except ValueError:
+                        pass
                     
                     # Accumulate states
                     st.session_state.current_state.update(state_update)
-            
-            # Set last node to completed
-            if active_node and active_node in progress_placeholders:
-                last_label = next(lbl for nid, lbl in NODE_LIST if nid == active_node)
-                progress_placeholders[active_node].markdown(
-                    f'<div class="step-status status-completed">✅ {last_label} - Done</div>',
-                    unsafe_allow_html=True
-                )
                 
             st.session_state.review_report = st.session_state.current_state.get("report", {})
             save_to_history(repo_url, st.session_state.review_report, st.session_state.current_state)
